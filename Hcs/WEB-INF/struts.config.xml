@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+	
+	
+	<!-- 	here we configure all actionform information follow here this is bean form	 -->
+	
+	
+	<form-beans>
+	
+	
+	<!-- user form  beam -->
+	
+		<form-bean name="userRegister" type="org.chinna.user.UserRegister"/>
+	 	<form-bean name="userVO" type="org.chinna.user.UserLogin"/>
+ 		
+	
+		<!-- 	admin from beans	 -->
+		 
+		 <form-bean name="adminRegister" type="org.chinna.admin.AdminRegister"/>
+		 
+	</form-beans>
+	
+	
+	<!--All action class will be configured here we have to follow this	 -->
+	 
+	 
+	<action-mappings>
+	
+	
+	<!-- 	user action mapping information	 -->
+
+		<action path="/userRegisteredForm" type="org.chinna.user.UserRegisterAction" name="userRegister" scope="request" validate="true" input="/user/userRegisterForm.jsp"  >
+			<forward name="store" path="/user/store.jsp"></forward>
+			<forward name="uaa" path="/user/userRegisterForm.jsp"></forward>
+		</action>
+		
+		<action path="/userLogin" type="org.chinna.user.UserLoginAction" name="userVO" scope="request" validate="true" input="/user/userLoginForm.jsp">
+			<forward name="failed" path="/user/userLoginForm.jsp"/>
+			<forward name="signin" path="/user/user_had_loggedin.jsp"></forward>
+		</action>
+	
+	<!-- 	admin action mapping information -->
+	
+		<action path="/adminRegisteredForm" type="org.chinna.admin.AdminRegisterAction" name="adminRegister" scope="request" validate="true" input="/admin/adminLoginForm.jsp" >
+			<forward name="signin" path="/admin/adminSignedin.jsp"/>
+			<forward name="failed" path="/admin/adminLoginForm.jsp"/>
+			<forward name="home" path="/Hcs/"/>
+		</action>
+	
+		<action path="/checkNewUser" type="org.chinna.admin.AdminCheckNewUsersAction" scope="request">
+			<forward name="getUserVO" path="/admin/adminCheckNewUsers.jsp"/>
+		</action>
+		
+		<action path="/checkPendingUser" type="org.chinna.admin.AdminCheckPendingUsersAction" scope="request">
+			<forward name="getPendingUserVO" path="/admin/adminCheckPendingUsers.jsp"/>
+		</action>
+		
+		<action path="/checkLockedUser" type="org.chinna.admin.AdminCheckLockedUsersAction" scope="request">
+			<forward name="getLockedUserVO" path="/admin/adminCheckLockedUsers.jsp"/>
+		</action>
+		
+		<action path="/checkUsedUser" type="org.chinna.admin.AdminCheckUsedUsersAction" scope="request">
+			<forward name="getUsedUserVO" path="/admin/adminCheckUsedUsers.jsp"/>
+		</action>
+		
+		<action path="/adminPermitionToUser.do" type="org.chinna.admin.AdminCheckUsedUsersAction" scope="request">
+			<forward name="userActivated" path="/admin/adminCheckUsedUsers.jsp"/>
+		</action>
+		
+		<action path="/adminGivePermitionToUser" type="org.chinna.admin.AdminPermitionToNewUserAction" scope="request">
+			<forward name="givePermition" path="/admin/adminSignedin.jsp"></forward>
+		</action>
+		
+		<action path="/adminDeleteLockedUser" type="org.chinna.admin.AdminDeleteLockedUserAction" scope="request">
+			<forward name="deleted" path="/admin/adminSignedin.jsp"/>
+		</action>
+		
+		<action path="/AdminChangePassword" type="org.chinna.admin.AdminChangePasswordAction" name="adminRegister" scope="request"  input="/admin/adminPasswordchange.jsp">
+			<forward name="changedPassword" path="/admin/adminSignedin.jsp"></forward>
+		</action>
+		
+	</action-mappings>
+	
+	<message-resources parameter="user"/>
+	<!--  <message-resources parameter="log4j"/> -->
+</struts-config>

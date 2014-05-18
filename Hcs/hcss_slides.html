@@ -1,0 +1,136 @@
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="/Hcs/css/sliderwall_bullets_skin.css"/>
+<link rel="stylesheet" type="text/css" href="/Hcs/css/slideshow_sample.css"/>
+
+
+<script type="text/javascript" src="/Hcs/javascript/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Hcs/javascript/sliderwall-bullets-1.1.2.js"></script>
+
+<script type="text/javascript">
+
+
+
+var mySlider;
+var err;
+
+// Initialize the slider.
+$(document).ready(function() {
+	try {
+		// imageSlideshow is the id of the <div> tag that will contain the SliderWall instance.
+		$("#imageSlideshow").sliderWallBullets({
+			// general options
+			cssClassSuffix: "",
+			domainKeys: "",
+			imageAlign: "middleCenter", /* topLeft, topCenter, topRight, middleLeft, middleCenter (default), middleRight, bottomLeft, bottomCenter, bottomRight */
+			imageScaleMode: "scaleCrop", /* scale, scaleCrop (default), crop, stretch */
+			loopContent: true,
+			rssFeed: null,
+			selectableContent: true,
+			
+			// slideshow options
+			autoSlideShow: false,
+			slideShowSpeed: 6,
+			
+			// timer control options
+			showTimer: true,
+			timerPosition: "belowControlBar", /* aboveControlBar, belowControlBar (default) */
+			
+			// control bar options
+			autoHideControlBar: true,
+			controlsHideDelay: 5,
+			controlsShowHideSpeed: 0.2,
+			showControlBar: true,
+			
+			// navigation options
+			autoHideNavButtons: true,
+			showNavigationButtons: true,
+			
+			// text options
+			autoHideText: true,
+			
+			// interaction options
+			useGestures: true,
+			useKeyboard: true,
+			useMouseScroll: true,
+			pauseOnMouseOver: false,
+			disableAutohideOnMouseOver: false,
+
+
+			// transitions
+			transitionType: {
+				optimizeForIpad: false,  /* If set to true, it would use only the Alpha and Slide effects. */
+				random: false,
+				transitions: [{
+						name: "LensGlare",
+						duration: 1,
+						tweenType: "Expo",
+						easing: "easeOut",
+						gradientWidth: 100,
+						margins: 20,
+						lightOffset: 0,
+						lightDirection: false
+					}, 
+
+				]
+			},
+			
+			// callback functions
+			init: null,
+			contentLoadStart: null,
+			contentLoadComplete: null,
+			contentLoadError: null,
+			contentShow: null,
+			contentHide: null,
+			slideClick: null,
+			slideshowStart: null,
+			slideshowStop: null,
+			pageChange: null
+		});
+		
+		// This is how you get a reference to the SliderWall object to call 
+		// SliderWall methods (mySlider.next(), mySlider.getSelectedIndex()).
+		mySlider = $("#imageSlideshow").data("sliderWall");
+		
+	} catch(err) { /* handle any error messages */ }
+});
+</script>
+
+</head>
+
+
+
+<body>
+	<div id="main">
+	<!--	<p><strong>Note:</strong> this example requires HTML5 compatible browsers.</p> -->
+		<div id="imageSlideshow"> 					<!-- The slider will be placed within this <div> tag. -->
+			<div rel="slider_content" style="display: none;"> 	<!-- Define the structure and content for the slider. -->
+				<div rel="slide"> 				<!-- The structure for a slide. -->
+					<div rel="type">image</div> 		<!--The type of a slide can be image,object(for swf files)andhtml. -->
+					<div rel="title">Title 1</div> 		<!-- The title of the slide. -->
+					<div rel="description">Description 1 (click on the image to open somesite.com)</div> 
+										<!-- The description ofthe slide. -->
+					<div rel="content">/Hcs/images/Hcss.jpeg</div> 
+											<!-- The content of the slide: the URL of an image (if type 												is image), the URL of SWF file (if type is object) or HTML 													content (if type is html). -->
+					<div rel="thumbnail">/Hcs/thumbnails/Hcss.jpeg</div> <!-- The URL to a thumbnail image. -->
+					<div rel="target_url">http://www.somesite.com</div> 
+											<!-- The URL of a target web page that is displayed in a new 												tab when the user clicks on the slide. -->
+					<div rel="target_window">_blank</div> 		<!-- The target window where the URL will be opened. Possible 												values are _blank, _parent, _self, _top and frame_name. -->
+				</div>
+				<div rel="slide">
+					<div rel="type">image</div>
+					<div rel="content">/Hcs/images/maa.jpg</div>
+					<div rel="thumbnail">/Hcs/thumbnails/maa.jpg</div>
+					
+				</div>
+			</div>
+		</div> <!-- end SliderWall definition and structure -->
+	
+	</div>
+</body>
+</html>
+
+
+
+

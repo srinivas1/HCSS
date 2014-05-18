@@ -1,0 +1,23 @@
+body {
+background-color:#E5EECC;
+}
+
+
+body.allbody{
+	background-color:#E5EECC;
+}
+
+div.heading {
+background-color:#D4D4D4;
+width:700px;
+padding:10px;
+margin:10px; 
+}
+
+div.allbody{
+background-color: #aaaaa0;
+width:750px;
+height: auto;
+margin: auto;
+padding: 50px 0 44px;
+}

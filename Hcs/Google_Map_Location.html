@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Polygon Demo</title>
+
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;
+    key=ABQIAAAAclK0B2lXQwV5lPy1rL"
+        type="text/javascript"></script>
+
+    <script type="text/javascript">
+    
+    var map = null;
+    var polys = [];
+    var labels = [];
+    var xmlDoc=null;
+      
+    function load() 
+    {
+          if (GBrowserIsCompatible()) 
+          {
+            var point;
+            map = new GMap2(document.getElementById("map"));
+            map.addControl(new GLargeMapControl());
+            map.addControl(new GMapTypeControl());
+            map.setCenter(new GLatLng(17.3499,78.5600),11);         
+    
+        // Read the data from states.xml
+          
+          var request = GXmlHttp.create();
+          request.open("GET", "states.xml", true);
+          request.onreadystatechange = function() 
+          {
+            if (request.readyState == 4) 
+            {
+              xmlDoc = GXml.parse(request.responseText);
+              
+            
+              var states = xmlDoc.documentElement.getElementsByTagName("state");
+
+              // read each line
+              for (var a = 0; a < states.length; a++) 
+              {
+                // get any state attributes
+                var label  = states[a].getAttribute("name");
+                var colour = states[a].getAttribute("colour");
+                // read each point on that line
+                var points = states[a].getElementsByTagName("point");
+                var stateoptions = document.getElementById("xmlStates");
+                var optn = document.createElement("OPTION");
+                optn.text = states[a].getAttribute("name");
+                optn.value = states[a].getAttribute("name");
+                stateoptions.options.add(optn);
+              }
+            }
+          }
+          request.send(null);
+         }
+         else {
+          alert("Sorry, the Google Maps API is not compatible with this browser");
+        }
+    }
+    function loadselectedpoint()
+    {
+            if(xmlDoc==null){alert('null');return;}
+              var state = document.getElementById("xmlStates").value;
+              var states = xmlDoc.documentElement.getElementsByTagName("state");
+
+              for (var a = 0; a < states.length; a++) 
+              {
+                
+                var label  = states[a].getAttribute("name");
+                var colour = states[a].getAttribute("colour");
+                var points = states[a].getElementsByTagName("point");
+                if(states[a].getAttribute("name")==state)
+                {
+                
+                 var pts = [];
+                  for (var i = 0; i < points.length; i++) 
+                  {
+                     pts[i] = new GLatLng(parseFloat(points[i].getAttribute("lat")),
+                                          parseFloat(points[i].getAttribute("lng")));
+                  }
+                  var poly = 
+            new GPolygon(pts,"#000000",1,1,colour,0.5,{clickable:true});
+        GEvent.addListener(poly,'click',function(point)
+        {
+        map.openInfoWindowHtml(point, "Polygon is clicked!!")
+        });
+                  polys.push(poly);
+                  map.clearOverlays();
+                  map.addOverlay(poly);
+                 }
+              }
+             
+            }
+        
+   
+    //]]>
+    </script>
+
+</head>
+<body onload="load();" onunload="GUnload()" style="background-color: Transparent">
+    <!-- States :  
+     <select id="xmlStates" onchange="loadselectedpoint()">
+    <option>Hyderabad</option>
+    </select>-->
+    <br /><br />
+    <div id="map" style="width: 500px; height: 400px">
+    </div>
+</body>
+</html>
+ 
