@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div class="allbody">
-				<jsp:include page="/Heading.jsp"/>
+<%-- 				<jsp:include page="/Heading.jsp"/> --%>
 			<br/>
 			<br/>
 				 	<jsp:include page="hcss_slides.html"/><br/><br/> 
